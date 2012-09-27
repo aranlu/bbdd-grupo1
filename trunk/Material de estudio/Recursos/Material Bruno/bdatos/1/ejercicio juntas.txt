@@ -1,0 +1,54 @@
+ En base a las siguientes estadísticas:
+
+R(A,B,C) 	S(A,B,D) 	T(A,C,D) 	W(B,C,D)
+
+n_r = 1000  	n_s = 2000 	n_t= 3000 	n_w = 4000
+
+V(A,R) = 1000 	V(A,R) = 50 	V(A,T) = 50 	—
+V(B,R) = 50 	V(B,S) = 100 	— 	V(B,W) = 40
+V(C,R) = 20 	— 	V(C,T) = 300 	V(D,W) = 100
+-	V(D,S) = 200 	V(D,T) = 500 	V(D,W) = 400
+
+
+Calcular el tamaño de la junta:  (((R |X| S) |X| T) |X| W) 
+
+			nr . ns
+R |x| S =     ----------------------------------------
+	    max{V(A,R), V(A,S)} * max {V(B,R), V(B,S)}
+
+
+			1000 * 2000
+R |x| S = nRS = --------------------------------- = 20
+		       1000 * 100
+
+
+R |x| S tiene el siguiente dominio: (A,B,C,D)
+
+En la siguiente junta se tendra en cuenta los atributos compartidos (A, C, D)
+
+((R |X| S) |X| T) = nRS |x| T
+
+
+					 nRS . nt
+nRS |x| T = -------------------------------------------------------------------------------------
+	     max{V(A,R), V(A,S) V(A,T)} * max{V(C,R), V(C,T)} * max{V(D,S), V(D,T)}
+		        
+		
+
+		  20 . 3000
+nRS |x| T = ---------------------- = 0.0004 = nRST
+		1000 * 300 * 500         
+
+En la siguiente junta se tendra en cuenta los atributos compartidos (B, C, D)
+
+
+		nRST . nw
+nRST |x| W = ----------------------------------------------------------------------------------
+	     max{V(B,R), V(B,S) V(B,W)} * max{V(C,R), V(C,T), V(C,W)} * max{V(D,S), V(D,T), V(D,W)}
+
+
+
+				0.0004 * 4000
+(((R |X| S) |X| T) |X| W) = ---------------------------- = 1.06 x 10^-7
+				100 * 300 * 500
+			     

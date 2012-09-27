@@ -1,0 +1,114 @@
+Buenas,
+ 
+me gustaría saber si alguien sabe la resolución de este ejercicio sobre transacciones, que se tomó en el final de base de datos el 25-02-09. Yo no pude asistir a las clases teóricas, así que me guio por una carpeta y apuntes.
+ 
+Puede ser que el Caso A sea LOG REDO, y el Caso B LOG UNDO? De todas formas me cuesta justificar la respuesta.
+ 
+ 
+Ejercicio 3)
+
+ 
+^ Atributo ^ Valor ^
+|  A  |  13  |
+|  B  |  40  |
+|  C  |  35  |
+|  D  |  4  |
+|  E  |  18  |
+ 
+ 
+En ese mismo instante se examina el Log y se ve lo siguiente:
+ 
+Caso a)
+  (T1,START;); (T1,C;35) ;(T1,D;450) ;(T2,START; );(T2,C;18) ;(T2,B;40) ;(T1,COMMIT; );
+  (START CHECKPOINT, (T2) ;);(END CHECKPOINT,; );(T2,D;18) ;(T3,START; );(T3,C;35) ;
+  (T3,E;18);(T2, A;13);(T3, COMMIT;); (T2,COMMIT; );
+ 
+Caso B)
+  (T1,START;); (T1,D;4); (T2,START; );(T2,E;6) ;(T1,A;5) ;(START CHKPNT, (T1,T2) ;);
+  (T1,E;18);(T3, START;);( T3,C;35); (T3,A;13) ;(T2,COMMIT; );(T3,B;40) ;(T3,COMMIT; );
+  (END CHKPNT,;);(T1, A;18);(T1, COMMIT;);
+ 
+Lo que se pide es indicar **y justificar** para cada caso si: el log fue generado con UNDO, o REDO, u otro. 
+
+
+Recien estudie esto, por eso contesto tarde.. De todas formas mi respuesta es para tomar con pinzas... de depilar..
+
+En el caso A es correcto lo que decis, es un REDO, pero no para esa base de datos.. Fijate que tenes el registro (T2,D;18).. ese supongo que te dice que el atributo D tiene que valer 18 cuando en realidad vale 4.. asi que seria REDO de todas formas? O podriamos decir que es un REDO para otra base de datos?
+
+Y en el caso B me parece que en realidad es otro REDO.. fijate que tenes un START y END checkpoint para las transacciones 1 y 2... pero el commit de la transaccion 1 esta a lo ultimo, luego del end checkpoint.. . por eso no puede ser UNDO... pero tambien otra vez, esto seria para otra base de datos :s
+
+En definitiva creo que ambos son REDO.. pero el decir "no para esa base de datos, para otra" es lo que me re confunde y creo que estoy haciendo todo mal :s
+
+Saludos,
+Leo
+
+
+
+Buenas!
+
+Te mando un link que te puede ser muy util: http://www-2.dc.uba.ar/materias/bd/
+Tiene info de dependencias (bastante buena) y de recuperacion (ojo que hay una diferencia con lo q da Ale, y es que toman al ABORT como que si se escribe en el log es porque ya fue hecho el rollback correspondiente para la transaccion y no hay q tratarla.. pero en el libro de Ale dice que las transacciones con ABORT, tienen que ser deshechas.. la verdad q lo veo mejor como lo dicen en la pagina.. pero bueno.. me quedan dudas de como funciona segun Ale).
+Fijate en lo que se hace con los checkpoint para darse cuenta si es UNDO o REDO.. en el primer caso, las Tx de la lista del CKPT tienen que hacer commit ANTES del END CKPT.. en el REDO, las modificaciones de las Tx que hicieron commit ANTES del START CKPT tienen que ser escritas a disco ANTES del END CKPT.. asi te vas dando cuenta.
+
+Saludos!
+
+Alejandro
+
+2009/7/29 Marcelo Fistoli <marcelofistoli@gmail.com>
+
+    Gente, yo me sumo con otra duda..
+
+    Lei el libro de ale y me quedaron un par de dudas sobre el tema de
+    Recuperacion, mas en concreto UNDO y REDO ...
+
+    Cuando veo el archivo de log, como me doy cuenta si fue generado con
+    UNDO o con REDO??? ya que hasta ahora lo unico que encontre fue que si
+    lo hice con UNDO, el archivo de log tiene registros como (t,x,a) donde
+    t es el id de transaccion, x es el nombre del item que se actualizo y
+    a es el valor previo a la actualizacion ...
+
+    Para REDO es igual pero con los valores despues de la actualizacion ...
+
+    Esto es asi?  estoy en lo correcto??  Si tengo una instancia de cierta
+    relacion r en un momento previo a una falla y , ademas,  el archivo de
+    log ... que tengo que mirar para darme cuenta que fue con realizado
+    REDO o con UNDO??
+
+    Desde ya, muchas gracias
+    Saludos
+    Marcelo
+
+    2009/7/27 Juan Cruz Donato <jdonato@fi.uba.ar>:
+    > Si le llegás a decir que es lo mismo que la clausura pero con DMV a Ale, se
+    > te va a poner áspero.
+    > Si te pregunta qué es, tenés que decirle la definición tal como aparece en
+    > el libro, de memoria.
+    > El algoritmo para sacar la base es difícil de entender de una, pero con un
+    > día de quemarte el coco sale. Obvio que ni me lo acuerdo.
+    > En cuanto al cálculo de claves candidatas con DMVs, tenés que ver si, a
+    > partir de un par de DMVs podés inferir una DF, y ahí la podés usar. Esto se
+    > hace con axiomas y reglas de inferencia de DMVs.
+    >
+    > Saludos,
+    >        Juan Cruz
+    >
+    > De: iinfo-bounces@listas.fi.uba.ar [mailto:iinfo-bounces@listas.fi.uba.ar]
+    > En nombre de Ariel Epelman
+    > Enviado el: domingo, 26 de julio de 2009 04:24 p.m.
+    > Para: 'Alumnos y Docentes de Ingenieria en Informatica'
+    > Asunto: [Iinfo] Preguntas de Base de datos.
+    >
+    > Hola a todos, necesito una mano con base de datos ya que ni el libro ni mi
+    > carpeta de la materia (La cual esta completa) me lo pueden responder.
+    > El problema lo tengo con la base de dependencias y el calculo de claves
+    > candidatas cuando hay DMVs. Según entiendo la base de dependencia es igual a
+    > la clausura pero con DMVs. El problema es que el algoritmo de cómo lo saca
+    > es inentendible y la definición de lo que es la base de dependencia también.
+    > Asi que por favor acudo a la solidaridad de los que alguna vez estuvieron en
+    > la desesperación de tener que leer todos estos conceptos inentendibles y
+    > pudieron salir adelante.
+    > Gracias
+    > Ariel
+
+
+

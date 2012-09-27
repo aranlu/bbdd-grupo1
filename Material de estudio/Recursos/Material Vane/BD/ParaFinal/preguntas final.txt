@@ -1,0 +1,53 @@
+dependencias de junta
+5ta forma normal
+mét UNDO y REDO
+Costos de Juntas
+costo de una junta usando una Hashing
+Escribir sobre valores nulos en sql
+Agarra una hoja i te dibuja un der con ent debiles, rel ternarias..etc. --> pasarlo a modelo relacional
+Dados R (ABCDEF) y  F= { AB->C, C->B, D->E, E->D, D->F}
+ i. cuales son las claves candidatas?
+ ii. en q FN esta?
+ iii. descomponer en 3FN
+ iv. descomponer en FNBC
+ v. dada la descomp R1=(ABC) y R2=(DEF)
+   a) cuales son F1 y F2 ?
+   b) hay preservacion de dependencias?
+   c) hay perdida de info?
+1) Quien fue el creador del modelo entidad interrelacion ?
+2) Quien fue el creador del modelo relacional?
+3) cuales son los fundamentos teoricos de modelo entidad interrelacion?
+4) cuales son los fundamentos teoricos de modelo relacional?
+5) que cambios hizo el creador al tiempo de haberlo creado?
+6) cuales son los fundamentos teoricos de sql?
+7) cuales son los fundamentos matematicos del calculo relacional?
+8) cuales son los fundamentos matematicos del algebra relacional?
+9) Hablar de concurrencia.
+10) que criterios se tienen en cuenta para armar indices compuestos?
+11) Optimizacion de consultas? Como se hacen y que hace el programador
+12) Hablar de transacciones
+13) Explicar la 4FN
+14) Explicar la 5FN
+1) Protocolo Arbol
+2) sql 99 y 2003
+3) costo de la junta R(A,B)|X|S(B,C) con indice de agrupamiento (R) en B
+4) protocolo timestamp
+5) lock update
+6) lock incremental
+7) checkpoint activo con REDO
+Un ejercicio para pasar un DER a modelo relacional
+concurrencia 
+de modelo objeto-relacional
+juntas con indices con agrupamiento y sin agrupamiento y los costos incluso cuando no es uniforme el V(B,S)
+standart sql 99
+los tipos de lockeos (que hay más que read y write)
+base de dependencia
+- Algoritmo 3FN, FNBC, y 4FN
+- Algoritmo de la Clausura de atributos  X+
+- Algoritmo F minimal
+- Definición de df, de F (conj de dfs), y de 2FN.
+Dependencias multivaluadas
+Dependencias multivaluadas embebidas
+Base de dependecias
+Costos de consultas
+Todo el cap 8 del libro (transacciones)

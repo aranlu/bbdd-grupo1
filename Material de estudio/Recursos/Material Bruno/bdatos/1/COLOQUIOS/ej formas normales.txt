@@ -1,0 +1,88 @@
+R(ABCD)
+M:{A->BCD, B->AC, C->D}
+
+R esta en 4FN? Sino, llevar a 4FN
+
+1. Calculo las clausuras de los elementos de R
+
+(A)+ 
+ X0 = A U BCD = ABCD
+ X1 = ABCD 
+
+(A)+ = ABCD --> A es clave de R
+
+(B)+ 
+ X0 = B U AC = ABC
+ X1 = ABC U D = ABCD
+ 
+(B)+ = ABCD --> B es clave de R
+
+(C)+ 
+ X0 = C U D = CD
+
+(C)+ = CD --> C no es clave de R
+
+
+2. Hallo una Fmin para el conjunto de M
+
+paso1: descomposicion del tipo X->a1a2..an --> x->a1, x->a2, x->an
+
+Mmin = {A->B, A->C, A->D, B->A, B->C, C->D}
+
+paso2: elmiminacion de atributos redundantes, no hay, son todos simples del lado izquierdo
+
+paso3: eliminacion de dependencias redundantes
+
+1.A->B
+2.A->C
+3.A->D
+4.B->A
+5.B->C
+6.C->D
+
+no se detectan dependencias redundantes
+
+
+FNBC: R esta en FNBC si para toda df x-y pertenece a F+
+
+no quiero sacar y->x  / me queden df donde x este a la izquierda
+
+llevo a FNBC (que es la anterior inmediata a 4FN)
+
+a) Y c X
+b) X es superclave de R
+
+			---------------------------------------------
+			|R = (ABCD)		      		    |
+			|Mmin = {A->B, A->C, A->D, B->A, B->C, C->D}|
+			|CLAVE:	A, B		      		    |	
+			---------------------------------------------
+				/  			\	
+			       /		 	 \ C->D
+			      /				  \
+			     /				   \
+	-----------------------------------------	---------------
+	|R' = (ABD)				|	| R1 = (CD)   |
+	|Mmin = {A->B, A->C, A->D, B->A, B->C } |	| M1 = {C->D} |
+	|claves: A, B				| 	| clave = C   |
+	-----------------------------------------	---------------
+			/  		       \	
+		       /		 	\ B->C
+		      /			  	 \ B->D
+		     /			   	  \
+	----------------------------		---------------------
+	|R'' = (ABcD)		    |		| R2 = (ABC)  	    |
+	|Mmin = {A->B, A->C, A->D } |		| M1 = {B->A,B->C } |
+	|claves: A		    |		| clave = B         |
+	-----------------------------		---------------------
+
+
+r = (CD, ABC, ABCD)
+M = {C->D, B->A, B->C, A->B, A->C, A->D}
+
+se preservaron las df, no hay perdida de informacion.
+
+4FN: si para toda dmv no trivial x es superclave de R
+
+como no hay dependencias multivaluadas el esquema esta en 4FN 
+ 

@@ -1,0 +1,51 @@
+R(ABCD)
+M:{A->>BCD, B->AC, C->D}
+
+R esta en 4FN? Sino, llevar a 4FN
+
+1. Calculo las clausuras de los elementos de R
+
+
+(B)+ 
+ X0 = B U AC = ABC
+ X1 = ABC U D = ABCD
+ 
+(B)+ = ABCD --> B es clave de R
+
+(C)+ 
+ X0 = C U D = CD
+
+(C)+ = CD --> C no es clave de R
+
+no quiero sacar x->>y  / me queden df donde y este a la izquierda
+
+llevo a 4FN : X-->>Y es trivial sii R=XY o si Y C X
+              X es superclave de R
+			  
+
+			-----------------------------------------
+			|R = (ABCD)		      					|
+			|Mmin = M:{A->>BCD, B->AC, C->D}		|
+			|CLAVE:	B		      		    		|	
+			-----------------------------------------
+				/  								\	
+			   /		 			 			 \ C->D
+			 /									  \
+			/									   \
+	-----------------------------------------		---------------
+	|R' = (ABC)								|		| R1 = (CD)   |
+	|Mmin = { A->>BCD, B->AC} 				|		| M1 = {C->D} |
+	|claves: B								| 		| clave = C   |
+	-----------------------------------------		---------------
+
+
+
+r = (ABC, CD)
+M1 = {A->>BCD
+
+se preservaron las df, no hay perdida de informacion.
+
+4FN: si para toda dmv no trivial x es superclave de R
+
+como no hay dependencias multivaluadas el esquema esta en 4FN 
+ 
